@@ -1,29 +1,15 @@
 
 import './App.css'
-import ShoesStore from './modules'
+import ReactForm from './modules'
 
 
 function App() {
   return (
     <>
-      <ShoesStore/>
+      <ReactForm/>
     </>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
