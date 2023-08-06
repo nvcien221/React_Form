@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-
-export default class Result extends Component {
+import {connect} from 'react-redux'
+ class Result extends Component {
   render() {
     return (
       <>
@@ -14,16 +14,21 @@ export default class Result extends Component {
                 <th></th>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Nguyễn Văn Kiên</td>
-                    <td>0982672448</td>
-                    <td>vnk22012002@gmail.com</td>
-                    <td>
-                        <button className='btn btn-success '>Chỉnh sửa</button>
-                        <button className='btn btn-danger mx-2'>Xóa</button>
-                    </td>
-                </tr>
+              {
+                this.props.mangDanhSach.map(sv =>{
+                  return  <tr key={sv.id}>
+                  <td>{sv.id}</td>
+                  <td>{sv.name}</td>
+                  <td>{sv.phone}</td>
+                  <td>{sv.email}</td>
+                  <td>
+                      <button className='btn btn-success '>Chỉnh sửa</button>
+                      <button className='btn btn-danger mx-2'>Xóa</button>
+                  </td>
+              </tr>
+                })
+              }
+               
             </tbody>
           </table>
         </div>
@@ -32,3 +37,11 @@ export default class Result extends Component {
     )
   }
 }
+
+const mapStateToProps = (rootReducer)=>{
+  return {
+    mangDanhSach : rootReducer.ReactFormReducer.mangDanhSach,
+  }
+}
+
+export default connect(mapStateToProps)(Result);
