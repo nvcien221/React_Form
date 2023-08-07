@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import Result from './result'
 import {connect} from 'react-redux'
-import { dangKySVCreator } from '../redux-form/react-form.action'
+import { dangKySVCreator, hoanThienChinhSuaCreator } from '../redux-form/react-form.action'
  class ReactForm extends Component {
   state = {
     value:{
@@ -99,11 +98,18 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
   handleSubmit = (event)=>{
     event.preventDefault();
     for (const key in this.state.value) {
-      if(this.state.value[key].length === 0 || this.state.error[key]?.length > 0){
+      if(this.state.value[key].length === 0){
         return;
       }
+      if( this.state.error[key]?.length > 0){
+        return ;
+      }
     }
-    this.props.dispatch(dangKySVCreator(this.state.value));
+
+    const creator = this.props.svChinhSua ? hoanThienChinhSuaCreator : dangKySVCreator;
+    this.props.dispatch(creator(this.state.value));
+
+
 
     this.setState({
       value:{
@@ -116,14 +122,19 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
   }
 
  static getDerivedStateFromProps(newProps, currentState){
-    console.log({newProps, currentState})
-    if(newProps.svChinhSua?.id != currentState.value){
-      return {
-        value: newProps.svChinhSua,
+    if(newProps.svChinhSua){
+      if(newProps.svChinhSua?.id != currentState.value.id){
+        return {
+          ...currentState,
+          value: newProps.svChinhSua,
+        }
       }
     }
-    return currentState;
+    return null;
   }
+
+
+  
 
   render() {
     return (
@@ -195,9 +206,13 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
             </div>
           </div>
 
-          <button className="btn btn-success" type="submit">Thêm sinh viên</button>
 
-          <Result/>
+              <div>
+                {this.props.svChinhSua ? 
+                (<button className="btn btn-success" type="submit">Chỉnh sửa</button>)
+                :(<button className="btn btn-success" type="submit">Thêm sinh viên</button>)}
+              </div>
+
         </form>
       </div>
     )

@@ -19,3 +19,10 @@ export const chinhSuaCreator = (payload)=>{
         payload,
     }
 }
+
+export const hoanThienChinhSuaCreator = (payload)=>{
+    return{
+        type: ReactForm.HoanThienChinhSua,
+        payload,
+    }
+}

@@ -5,7 +5,7 @@ import { chinhSuaCreator, xoaSVCreator } from '../redux-form/react-form.action'
   render() {
     return (
       <>
-        <div className='mt-3'>
+        <div className='mt-3 container'>
           <table className='table'>
             <thead className='p-1 mt-4 bg-dark text-white'>
                 <th>Mã SV</th>
@@ -26,6 +26,7 @@ import { chinhSuaCreator, xoaSVCreator } from '../redux-form/react-form.action'
                       <button 
                       onClick={()=>{
                         this.props.dispatch(chinhSuaCreator(sv))
+                        
                       }}
                       className='btn btn-success '>Chỉnh sửa</button>
                       <button 

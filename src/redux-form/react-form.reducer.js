@@ -22,7 +22,20 @@ export const ReactFormReducer = (state = STATE_DEFAULT, action) => {
             return {...state}
         }
         case ReactForm.ChinhSuaSV:{
+            console.log(action.payload)
             state.svChinhSua = action.payload;
+            return {...state};
+        }
+        case ReactForm.HoanThienChinhSua:{
+            const indexFind = state.mangDanhSach.findIndex(i => i.id === action.payload.id);
+
+            if(indexFind === -1){
+                return {...state};
+            }else{
+                state.mangDanhSach[indexFind] = action.payload;
+                state.mangDanhSach = [...state.mangDanhSach];
+            }
+            state.svChinhSua = null;
             return {...state}
         }
         default:
