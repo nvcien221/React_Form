@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { chinhSuaCreator, xoaSVCreator } from '../redux-form/react-form.action'
  class Result extends Component {
   render() {
     return (
@@ -22,8 +23,20 @@ import {connect} from 'react-redux'
                   <td>{sv.phone}</td>
                   <td>{sv.email}</td>
                   <td>
-                      <button className='btn btn-success '>Chỉnh sửa</button>
-                      <button className='btn btn-danger mx-2'>Xóa</button>
+                      <button 
+                      onClick={()=>{
+                        this.props.dispatch(chinhSuaCreator(sv))
+                      }}
+                      className='btn btn-success '>Chỉnh sửa</button>
+                      <button 
+                      onClick={()=>{
+                        if(window.confirm('Bạn muốn xóa sinh viên này khỏi danh sách!')){
+                          this.props.dispatch(xoaSVCreator({
+                            id: sv.id,
+                          }));
+                        }
+                      }}
+                      className='btn btn-danger mx-2'>Xóa</button>
                   </td>
               </tr>
                 })

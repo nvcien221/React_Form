@@ -103,8 +103,28 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
         return;
       }
     }
-    this.props.dispatch(dangKySVCreator(this.state.value))
+    this.props.dispatch(dangKySVCreator(this.state.value));
+
+    this.setState({
+      value:{
+        id: "",
+        name:"",
+        phone:"",
+        email:"",
+      }
+    })
   }
+
+ static getDerivedStateFromProps(newProps, currentState){
+    console.log({newProps, currentState})
+    if(newProps.svChinhSua?.id != currentState.value){
+      return {
+        value: newProps.svChinhSua,
+      }
+    }
+    return currentState;
+  }
+
   render() {
     return (
       <div className='container mt-5'>
@@ -117,13 +137,13 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
               <label htmlFor="id">Mã sinh viên</label>
               <input type="text" className="form-control " id="id"  
               onFocus={this.handleFocus}
-              value={this.state.value.id}
+              value={this.state.value?.id}
               onChange={(event)=>{
                 this.handleChange(event);
               }}
               />
               {
-                this.state.touch.id && this.state.error.id && (
+                this.state.touch?.id && this.state.error?.id && (
                   <p className='text-danger'>{this.state.error?.id}</p>
                 )
               }
@@ -132,13 +152,13 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
               <label htmlFor="name">Họ tên</label>
               <input 
               onFocus={this.handleFocus}
-              value={this.state.value.name}
+              value={this.state.value?.name}
               onChange={(event)=>{
                 this.handleChange(event);
               }}
               type="text" className="form-control " id="name" />
               {
-                this.state.touch.name && this.state.error.name && (
+                this.state.touch?.name && this.state.error?.name && (
                   <p className='text-danger'>{this.state.error?.name}</p>
                 )
               }
@@ -147,13 +167,13 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
               <label htmlFor="phone">Số điện thoại</label>
               <input 
               onFocus={this.handleFocus}
-              value={this.state.value.phone}
+              value={this.state.value?.phone}
               onChange={(event)=>{
                 this.handleChange(event);
               }}              
               type="text" className="form-control " id="phone"  />
               {
-                this.state.touch.phone && this.state.error.phone && (
+                this.state.touch?.phone && this.state.error?.phone && (
                   <p className='text-danger'>{this.state.error?.phone}</p>
                 )
               }
@@ -162,13 +182,13 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
               <label htmlFor="email">Email</label>
               <input 
               onFocus={this.handleFocus}
-              value={this.state.value.email}
+              value={this.state.value?.email}
               onChange={(event)=>{
                 this.handleChange(event);
               }}              
               type="text" className="form-control " id="email"  />
               {
-                this.state.touch.email && this.state.error.email && (
+                this.state.touch?.email && this.state.error?.email && (
                   <p className='text-danger'>{this.state.error?.email}</p>
                 )
               }
@@ -183,4 +203,11 @@ import { dangKySVCreator } from '../redux-form/react-form.action'
     )
   }
 }
-export default connect()(ReactForm);
+
+const mapStateToProps = (rootReducer)=>{
+  return {
+    svChinhSua: rootReducer.ReactFormReducer.svChinhSua,
+  }
+}
+
+export default connect(mapStateToProps)(ReactForm);

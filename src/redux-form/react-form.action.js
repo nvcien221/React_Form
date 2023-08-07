@@ -5,3 +5,17 @@ export const dangKySVCreator = (payload)=>{
         payload,
     }
 }
+
+export const xoaSVCreator = (payload)=>{
+    return{
+        type: ReactForm.XoaSV,
+        payload,
+    }
+}
+
+export const chinhSuaCreator = (payload)=>{
+    return{
+        type: ReactForm.ChinhSuaSV,
+        payload,
+    }
+}
